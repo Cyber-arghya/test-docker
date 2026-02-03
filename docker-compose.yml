@@ -1,0 +1,22 @@
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/code
+    environment:
+      - FLASK_ENV=development
+      - FLASK_DEBUG=1
+    depends_on:
+      - db
+  
+  db:
+    image: redis:alpine
+    # This keeps the Redis data safe
+    volumes:
+      - redis_data:/data
+
+# Define the named volume here
+volumes:
+  redis_data:
